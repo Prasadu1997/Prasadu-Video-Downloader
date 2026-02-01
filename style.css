@@ -1,11 +1,4 @@
-/* Prasadu's Video Downloader - Style.css */
-/* Same design language as your image converter - responsive, dark mode, mobile friendly */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
   font-family: 'Inter', sans-serif;
@@ -13,7 +6,6 @@ body {
   color: #333;
   line-height: 1.6;
   transition: background 0.3s, color 0.3s;
-  min-height: 100vh;
 }
 
 body.dark-mode {
@@ -23,15 +15,15 @@ body.dark-mode {
 
 body.dark-mode .header { background: #2c3035; }
 body.dark-mode .vibrant-header { background: linear-gradient(135deg, #1a68d1, #218838); }
-body.dark-mode .url-zone { background: #3a3f45; border-color: #495057; }
-body.dark-mode .url-zone:focus-within { border-color: #2c7be5; background: #495057; }
-body.dark-mode .result-area { background: #3a3f45; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+body.dark-mode .upload-zone { background: #3a3f45; border-color: #495057; }
+body.dark-mode .upload-zone:hover, .upload-zone.dragover { background: #495057; border-color: #2c7be5; }
+body.dark-mode .result-area { background: #3a3f45; }
+body.dark-mode .preview-item { background: #2c3035; }
 body.dark-mode h1 { color: #f8f9fa; }
 body.dark-mode .subtitle { color: #adb5bd; }
+body.dark-mode .savings-text { color: #28a745; }
+body.dark-mode .status-success { background: #155724; color: #d4edda; border-color: #28a745; }
 body.dark-mode footer { color: #adb5bd; border-top-color: #495057; }
-body.dark-mode .get-app-section { background: #3a3f45; }
-body.dark-mode .get-app-section h2 { color: #f8f9fa; }
-body.dark-mode .get-app-section p, .install-info { color: #adb5bd; }
 
 .header {
   display: flex;
@@ -52,8 +44,10 @@ body.dark-mode .get-app-section p, .install-info { color: #adb5bd; }
 }
 
 .logo-icon {
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
+  object-fit: contain; /* keeps circle shape perfect */
+  image-rendering: crisp-edges; /* sharper on some browsers */
 }
 
 .logo-text-wrapper {
@@ -62,64 +56,61 @@ body.dark-mode .get-app-section p, .install-info { color: #adb5bd; }
 }
 
 .logo-main {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
   line-height: 1.1;
 }
 
 .logo-sub {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   opacity: 0.95;
 }
 
 nav a {
   margin-left: 20px;
-  color: white;
   text-decoration: none;
+  color: white;
   font-weight: 500;
 }
 
 nav a:hover { color: #fffacd; }
 
 .main-container {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 60px auto;
   padding: 0 20px;
   text-align: center;
 }
 
-h1 {
-  font-size: 2.8rem;
-  margin-bottom: 12px;
-  color: #212529;
-}
+h1 { font-size: 2.8rem; margin-bottom: 12px; color: #212529; }
 
-.subtitle {
-  font-size: 1.2rem;
-  color: #6c757d;
-  margin-bottom: 40px;
-}
+.subtitle { font-size: 1.2rem; color: #6c757d; margin-bottom: 40px; }
 
-.url-zone {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.upload-zone {
+  border: 3px dashed #adb5bd;
+  border-radius: 16px;
+  padding: 80px 20px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
   margin-bottom: 30px;
 }
 
-.url-input {
-  padding: 16px 20px;
-  font-size: 1.1rem;
-  border: 2px solid #ced4da;
-  border-radius: 50px;
-  outline: none;
-  transition: border 0.3s;
-  width: 100%;
+.upload-zone:hover, .upload-zone.dragover {
+  border-color: #2c7be5;
+  background: #f0f7ff;
+  box-shadow: 0 0 20px rgba(44,123,229,0.15);
 }
 
-.url-input:focus {
-  border-color: #28a745;
-  box-shadow: 0 0 0 3px rgba(40,167,69,0.2);
+.url-input {
+  width: 100%;
+  max-width: 600px;
+  padding: 12px 16px;
+  font-size: 1.1rem;
+  border: 2px solid #ced4da;
+  border-radius: 30px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .primary-btn {
@@ -134,12 +125,11 @@ h1 {
   box-shadow: 0 4px 12px rgba(40,167,69,0.2);
 }
 
-.primary-btn:hover { background: #218838; transform: translateY(-2px); }
+.primary-btn:hover { background: #218838; }
 
 .primary-btn:disabled {
   background: #6c757d;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
 .status-message {
@@ -147,6 +137,7 @@ h1 {
   padding: 12px 20px;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 1.1rem;
 }
 
 .status-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
@@ -174,54 +165,66 @@ h1 {
   padding: 40px;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  animation: fadeIn 0.6s ease-out;
 }
 
-@keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-
-.video-preview {
-  margin-bottom: 30px;
+.progress-container {
+  margin: 30px 0;
+  text-align: center;
 }
 
-.video-preview img {
-  max-width: 100%;
+#progressText {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+progress {
+  width: 100%;
+  height: 24px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  margin-bottom: 15px;
+  background: #e9ecef;
 }
 
-.quality-list {
+progress::-webkit-progress-value {
+  background: linear-gradient(to right, #28a745, #2c7be5);
+  border-radius: 12px;
+  transition: width 0.4s ease;
+}
+
+.previews-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin: 40px 0;
 }
 
-.quality-btn {
-  padding: 14px;
-  background: #28a745;
-  color: white;
-  border: none;
+.preview-item {
+  background: #fff;
+  padding: 20px;
   border-radius: 12px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  text-align: center;
 }
 
-.quality-btn:hover { background: #218838; transform: translateY(-2px); }
-
-.toggle-btn {
+.download-single {
+  display: inline-block;
   padding: 10px 20px;
-  background: #6c757d;
+  background: #2c7be5;
   color: white;
-  border: none;
   border-radius: 30px;
-  cursor: pointer;
-  margin-top: 20px;
+  text-decoration: none;
+  margin: 10px;
 }
 
-.toggle-btn:hover { background: #5a6268; }
+.savings-text {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #28a745;
+  margin-top: 30px;
+}
 
+/* Footer */
 footer {
   text-align: center;
   padding: 40px 20px;
@@ -229,61 +232,79 @@ footer {
   border-top: 1px solid #dee2e6;
   margin-top: 80px;
 }
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .main-container { margin: 40px auto; padding: 0 15px; }
-  h1 { font-size: 2.2rem; }
-  .subtitle { font-size: 1rem; }
-  .url-zone { flex-direction: column; }
-  .primary-btn { width: 100%; padding: 16px; }
-}
-
-/* Get App Section – same size badges */
+/* Install as App – same visual size for both badges */
 .get-app-section {
-  margin: 60px auto;
-  max-width: 700px;
+  margin: 60px 15px;
   padding: 40px 20px;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   text-align: center;
 }
 
-.get-app-section h2 { margin-bottom: 12px; font-size: 2rem; color: #212529; }
+.get-app-section h2 {
+  margin-bottom: 12px;
+  font-size: 2rem;
+  color: #212529;
+}
 
-.get-app-section p { margin-bottom: 30px; font-size: 1.1rem; color: #6c757d; }
+.get-app-section p {
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  color: #6c757d;
+}
 
 .app-store-buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
-  margin: 20px 0;
+  gap: 40px;
+  margin: 25px 0;
 }
 
 .store-btn {
-  width: 180px;
-  height: 60px;
+  display: block;
+  width: 220px;               /* same fixed width for both */
+  height: 70px;               /* same fixed height */
   padding: 0;
   border: none;
   background: none;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
 }
 
-.store-btn:hover { transform: scale(1.05); }
+.store-btn:hover {
+  transform: scale(1.05);
+}
 
 .badge-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   display: block;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: #000;
+  padding: 10px;
+  border-radius: 14px;
 }
 
-/* Dark mode for get-app */
-body.dark-mode .get-app-section { background: #3a3f45; }
-body.dark-mode .get-app-section h2 { color: #f8f9fa; }
-body.dark-mode .get-app-section p, .install-info { color: #adb5bd; }
+/* Mobile – stack and keep same size */
+@media (max-width: 600px) {
+  .app-store-buttons {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .store-btn {
+    width: 220px;
+    height: 70px;
+  }
+}
+
+/* Larger screens – side by side */
+@media (min-width: 601px) {
+  .app-store-buttons {
+    flex-direction: row;
+  }
+}

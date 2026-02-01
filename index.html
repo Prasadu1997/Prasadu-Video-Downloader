@@ -8,6 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#28a745">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,7 +16,7 @@
 <body>
   <header class="header vibrant-header">
     <div class="logo">
-      <img src="video-logo.svg" alt="Prasadu's Video Downloader Logo" class="logo-icon">
+      <img src="video-logo.svg" alt="Logo" class="logo-icon">
       <div class="logo-text-wrapper">
         <span class="logo-main">Prasadu's Video Downloader</span>
         <span class="logo-sub">Free & Fast</span>
@@ -29,45 +30,57 @@
 
   <main class="main-container">
     <h1>Prasadu's Video Downloader</h1>
-    <p class="subtitle">Download videos from YouTube, Instagram, TikTok, Facebook & more. HD, MP3, no watermark – 100% free, private & unlimited!</p>
+    <p class="subtitle">Download videos from YouTube, Instagram, TikTok, Facebook & more. HD, MP3, no watermark – 100% in your browser, private & unlimited!</p>
 
-    <div class="url-zone">
-      <input type="text" id="videoUrl" placeholder="Paste video URL here (YouTube, Instagram, TikTok...)" class="url-input">
-      <button id="downloadBtn" class="primary-btn">Download</button>
+    <div class="upload-zone" id="urlZone">
+      <input type="text" id="urlInput" placeholder="Paste video URL here (YouTube, Instagram, TikTok, etc.)" class="url-input">
+      <div class="upload-content">
+        <div class="upload-icon">⬇</div>
+        <p>Paste URL above and click Download</p>
+        <small>Supports YouTube, Instagram, TikTok, Facebook, Pinterest, Twitter & more</small>
+      </div>
     </div>
 
     <div id="statusMessage" class="status-message"></div>
 
+    <button id="downloadBtn" class="primary-btn" disabled>Download Video</button>
+
     <div id="loadingSpinner" class="spinner" style="display:none;">
       <div class="spinner-circle"></div>
-      <p>Fetching video info...</p>
+      <p>Fetching video...</p>
     </div>
 
     <div id="result" class="result-area" style="display:none;">
-      <h3>Ready to Download! 🎉</h3>
-      <div class="video-preview">
-        <img id="thumbnail" alt="Video Thumbnail">
-        <h4 id="title"></h4>
-        <p id="duration"></p>
+      <h3>Download Ready! 🎉</h3>
+      <div id="progressContainer" class="progress-container">
+        <p id="progressText">Fetching... 0%</p>
+        <progress id="progressBar" value="0" max="100"></progress>
       </div>
-      <div id="qualityOptions" class="quality-list"></div>
-      <button id="darkModeToggle" class="toggle-btn">🌙 Dark Mode</button>
+      <div id="previewsContainer" class="previews-container"></div>
+      <p id="totalSavings" class="savings-text"></p>
     </div>
 
-    <!-- Install as App -->
-    <section class="get-app-section">
-      <h2>Install as App</h2>
-      <p>Works offline after install – like a real app on your phone!</p>
-      <div class="app-store-buttons">
-        <a href="#" id="androidInstall" class="store-btn">
-          <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" class="badge-img">
-        </a>
-        <a href="#" id="iosInstall" class="store-btn">
-          <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" class="badge-img">
-        </a>
-      </div>
-      <p class="install-info">Tap the button for your device to install or add to home screen.</p>
-    </section>
+    <!-- Install as App – same visual size for both badges -->
+<section class="get-app-section">
+  <h2>Install as App</h2>
+  <p>Works offline after install – like a real app on your phone!</p>
+
+  <div class="app-store-buttons">
+    <!-- Android – official badge with consistent sizing -->
+    <a href="#" id="androidInstall" class="store-btn">
+      <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" 
+           alt="Get it on Google Play" class="badge-img">
+    </a>
+
+    <!-- iOS – official badge -->
+    <a href="#" id="iosInstall" class="store-btn">
+      <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
+           alt="Download on the App Store" class="badge-img">
+    </a>
+  </div>
+
+  <p class="install-info">Tap the button for your device to install or add to home screen.</p>
+</section>
   </main>
 
   <footer>
@@ -75,28 +88,21 @@
   </footer>
 
   <script src="script.js"></script>
+  <!-- PWA script -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
     }
-
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
     });
-
-    document.getElementById('androidInstall').addEventListener('click', async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt = null;
-      } else {
-        alert('On Android: Tap menu (3 dots) → Add to home screen');
-      }
+    document.getElementById('androidInstall').addEventListener('click', () => {
+      if (deferredPrompt) deferredPrompt.prompt();
     });
-
     document.getElementById('iosInstall').addEventListener('click', () => {
-      alert('On iOS: Safari → Share icon → Add to Home Screen');
+      alert('On iOS: Open in Safari → Tap Share → Add to Home Screen');
     });
   </script>
 </body>
