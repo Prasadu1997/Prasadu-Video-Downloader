@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Outer circle with blue-green gradient -->
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2c7be5"/>
+      <stop offset="100%" stop-color="#28a745"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="240" fill="url(#grad)"/>
+
+  <!-- White download arrow (centered, thick, rounded) -->
+  <path d="M256 120 L256 340 M256 340 L180 264 M256 340 L332 264" 
+        fill="none" stroke="white" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Optional small text below (delete this <text> line if you want no text at all) -->
+  <text x="256" y="440" font-family="Arial, sans-serif" font-size="58" fill="white" text-anchor="middle" font-weight="bold">Prasadu</text>
+</svg>

@@ -1,0 +1,289 @@
+/* Prasadu's Video Downloader - Style.css */
+/* Same design language as your image converter - responsive, dark mode, mobile friendly */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+  color: #333;
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
+}
+
+body.dark-mode {
+  background: linear-gradient(to bottom, #1e2125, #2c3035);
+  color: #e0e0e0;
+}
+
+body.dark-mode .header { background: #2c3035; }
+body.dark-mode .vibrant-header { background: linear-gradient(135deg, #1a68d1, #218838); }
+body.dark-mode .url-zone { background: #3a3f45; border-color: #495057; }
+body.dark-mode .url-zone:focus-within { border-color: #2c7be5; background: #495057; }
+body.dark-mode .result-area { background: #3a3f45; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+body.dark-mode h1 { color: #f8f9fa; }
+body.dark-mode .subtitle { color: #adb5bd; }
+body.dark-mode footer { color: #adb5bd; border-top-color: #495057; }
+body.dark-mode .get-app-section { background: #3a3f45; }
+body.dark-mode .get-app-section h2 { color: #f8f9fa; }
+body.dark-mode .get-app-section p, .install-info { color: #adb5bd; }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #2c7be5, #28a745);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.logo-text-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-main {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.logo-sub {
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
+nav a {
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover { color: #fffacd; }
+
+.main-container {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  color: #212529;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin-bottom: 40px;
+}
+
+.url-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.url-input {
+  padding: 16px 20px;
+  font-size: 1.1rem;
+  border: 2px solid #ced4da;
+  border-radius: 50px;
+  outline: none;
+  transition: border 0.3s;
+  width: 100%;
+}
+
+.url-input:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40,167,69,0.2);
+}
+
+.primary-btn {
+  padding: 16px 60px;
+  font-size: 1.3rem;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(40,167,69,0.2);
+}
+
+.primary-btn:hover { background: #218838; transform: translateY(-2px); }
+
+.primary-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.status-message {
+  margin: 20px 0;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.status-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+
+.spinner {
+  margin: 40px auto;
+  text-align: center;
+}
+
+.spinner-circle {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #28a745;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.result-area {
+  margin-top: 40px;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+.video-preview {
+  margin-bottom: 30px;
+}
+
+.video-preview img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
+}
+
+.quality-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.quality-btn {
+  padding: 14px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.quality-btn:hover { background: #218838; transform: translateY(-2px); }
+
+.toggle-btn {
+  padding: 10px 20px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.toggle-btn:hover { background: #5a6268; }
+
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6c757d;
+  border-top: 1px solid #dee2e6;
+  margin-top: 80px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .main-container { margin: 40px auto; padding: 0 15px; }
+  h1 { font-size: 2.2rem; }
+  .subtitle { font-size: 1rem; }
+  .url-zone { flex-direction: column; }
+  .primary-btn { width: 100%; padding: 16px; }
+}
+
+/* Get App Section – same size badges */
+.get-app-section {
+  margin: 60px auto;
+  max-width: 700px;
+  padding: 40px 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.get-app-section h2 { margin-bottom: 12px; font-size: 2rem; color: #212529; }
+
+.get-app-section p { margin-bottom: 30px; font-size: 1.1rem; color: #6c757d; }
+
+.app-store-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.store-btn {
+  width: 180px;
+  height: 60px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.store-btn:hover { transform: scale(1.05); }
+
+.badge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Dark mode for get-app */
+body.dark-mode .get-app-section { background: #3a3f45; }
+body.dark-mode .get-app-section h2 { color: #f8f9fa; }
+body.dark-mode .get-app-section p, .install-info { color: #adb5bd; }
