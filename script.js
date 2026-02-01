@@ -20,9 +20,13 @@ darkModeToggle.addEventListener('click', () => {
 });
 
 // Enable/disable download button
-urlInput.addEventListener('input', () => {
-  downloadBtn.disabled = !urlInput.value.trim();
-});
+function updateDownloadButton() {
+  const url = urlInput.value.trim();
+  downloadBtn.disabled = !url;  // Enable if URL is not empty
+}
+
+urlInput.addEventListener('input', updateDownloadButton);
+updateDownloadButton();  // Initial state
 
 urlZone.addEventListener('click', () => urlInput.focus());
 
@@ -46,10 +50,10 @@ downloadBtn.addEventListener('click', async () => {
   progressText.textContent = '0%';
 
   try {
-    // === YOUR RAPIDAPI DETAILS – ALREADY UPDATED ===
+    // YOUR RAPIDAPI DETAILS (already in your code)
     const apiKey = 'dbd4dc0ccbmsheceda5d4798d6c9p175e8bjsnb8e48a10408b';
     const host = 'all-media-downloader1.p.rapidapi.com';
-    const endpoint = '/all';  // from your curl command
+    const endpoint = '/all';
 
     const response = await fetch(`https://${host}${endpoint}`, {
       method: 'POST',
@@ -59,7 +63,7 @@ downloadBtn.addEventListener('click', async () => {
         'x-rapidapi-key': apiKey
       },
       body: new URLSearchParams({
-        url: url  // send the pasted URL as form data
+        url: url
       })
     });
 
@@ -73,7 +77,7 @@ downloadBtn.addEventListener('click', async () => {
       throw new Error(data.error || 'No download link returned');
     }
 
-    // Show result (adjust field names if your API response is different)
+    // Show result (adjust if your API response fields are different)
     const title = data.title || 'Downloaded Video';
     const thumbnail = data.thumbnail || '';
     const downloadUrl = data.url || data.downloadUrl || data.videoUrl;
@@ -105,9 +109,3 @@ downloadBtn.addEventListener('click', async () => {
     console.error('Download error:', error);
   }
 });
-function updateDownloadButton() {
-  const url = urlInput.value.trim();
-  downloadBtn.disabled = !url;  // Enable if URL is not empty
-}
-urlInput.addEventListener('input', updateDownloadButton);
-updateDownloadButton();  // Initial state
