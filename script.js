@@ -105,3 +105,9 @@ downloadBtn.addEventListener('click', async () => {
     console.error('Download error:', error);
   }
 });
+function updateDownloadButton() {
+  const url = urlInput.value.trim();
+  downloadBtn.disabled = !url;  // Enable if URL is not empty
+}
+urlInput.addEventListener('input', updateDownloadButton);
+updateDownloadButton();  // Initial state
